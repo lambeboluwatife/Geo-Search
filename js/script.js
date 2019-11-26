@@ -13,14 +13,19 @@ function initMap() {
 
   // Weather Data
   btn.addEventListener('click', () => {
+    text.addEventListener('focus', () => {
+      text.style.border = '1px solid #7451eb';
+      errorMsg.textContent = '';
+      text.value = ''
+    });
     if (input.value == '') {
-      errorMsg.textContent = 'Enter a City'
+      errorMsg.textContent = 'Enter a Location'
       errorMsg.style.color = 'red';
-      errorMsg.style.fontFamily = 'Adobe Devanagari'
-      text.style.border = '1px solid red;'
+      errorMsg.style.fontFamily = 'Adobe Devanagari';
+      errorMsg.style.fontWeight = 'bold';
+      text.style.border = '1px solid red';
     }
     else {
-      errorMsg.textContent = '';
       let output1 = '';
       let output2 = '';
       let key = "&APPID=40547464b0a67a8f5d0e5fcd1364a8fe";
@@ -30,6 +35,7 @@ function initMap() {
         console.log(data);
         let lon = data.coord.lon;
         let lat = data.coord.lat;
+        let temp = data.main.temp;
 
         // Map Option
         let options = {
@@ -46,7 +52,8 @@ function initMap() {
           position: { lat: lat, lng: lon },
           map: map,
 
-        })
+        });
+
         // Output 1
         let iconCode = data.weather[0].icon
         output1 += `
@@ -74,7 +81,7 @@ function initMap() {
         <center>
           <h2 class="weather-city">Weather in ${input.value}</h2>
           <img src="http://openweathermap.org/img/w/${iconCode}.png">
-          <h4>${data.main.temp}℃</h4>
+          <h4>${temp}℃</h4>
           <p>${data.weather[0].description}</p>
         </center>
         </div>
@@ -112,7 +119,7 @@ function initMap() {
           </tr>
           <tr>
             <td>Temperature</td>
-            <td>${data.main.temp}℃</td>
+            <td>${temp}℃</td>
           </tr>
           <tr>
             <td>Humidity</td>
@@ -134,7 +141,29 @@ function initMap() {
       .catch(function(error) {
         // catch any errors
         console.log(error.message);
+        errorMsg.textContent = 'City not Found'
+        errorMsg.style.color = 'red';
+        errorMsg.style.fontFamily = 'Adobe Devanagari';
+        errorMsg.style.fontWeight = 'bold';
+        text.style.border = '1px solid red';
       });
+
+
+        // Temperature Converter
+        document.querySelector('.celcius').addEventListener('click', convertToCelcius);
+        document.querySelector('.fahranheit').addEventListener('click', convertToFahranheit);
+
+        function convertToCelcius() {
+          var celciusTemp = temp.textContent;
+          var celciusTemperature = Math.round(parseFloat(celciusTemp) - 273.15);
+          document.querySelector('.celciusContent').innerHTML = celciusTemperature + '&deg' + 'C';
+        }
+
+        function convertToFahranheit() {
+          var fahranheitTemp = temp.textContent;
+          var fahranheitTemperature = Math.round(((parseFloat(fahranheitTemp) - 273.15) * 1.8) + 32);
+          document.querySelector('.fahranheitContent').innerHTML = fahranheitTemperature + '&deg' + 'F';
+        }
     }
   });
 
