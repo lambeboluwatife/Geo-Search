@@ -4,10 +4,7 @@
     <meta charset="utf-8">
     <title>Geo-Search</title>
     <link rel="stylesheet" type="text/css" href="css/main.css">
-    <!-- <link rel="stylesheet" href="fontawesome/css/fontawesome.css">
-    <link rel="stylesheet" href="fontawesome/css/solid.css">
-    <link rel="stylesheet" href="fontawesome/css/brands.css">
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'> -->
+    <link rel="stylesheet" href="css/style.css">
   </head>
   <body>
     <!-- Header -->
@@ -15,6 +12,8 @@
       <!-- NavBar -->
       <ul>
         <li><h3>Geo-Search</h3></li>
+        <li style="float:right; margin-top: 10px; margin-left: 10px;"><button class="fahranheit">&#8457;</button></li>
+        <li style="float:right; margin-top: 10px; margin-left: 10px;"><button class="celcius" disabled>&#8451;</button></li>
       </ul>
     </header>
 
@@ -31,8 +30,8 @@
           <form class="form-content">
             <h3>Enter a Location to get Weather Data</h3>
             <input class="text" type="text" id="autocomplete"/>
-            <button class="btn" type="button" name="button">Search</button>
             <div class="errorMsg"></div>
+            <button class="btn" type="button" name="button">Search</button>
           </form>
       </div>
       </center>
@@ -44,7 +43,7 @@
         <div class="flex-item">
           <!-- Weather Output 1 -->
           <div class="weatherOutput1">
-            
+
           </div>
 
           <!-- Weather Output 2 -->
@@ -69,7 +68,7 @@
 
 
     <script src="js/script.js" charset="utf-8"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?types=cities&key=AIzaSyBjctDEEZqzGG2HOd1lhMEBnHycOetHz4M&callback=initMap&libraries=places"
+    <script src="https://maps.googleapis.com/maps/api/js?types=geocode&key=AIzaSyBjctDEEZqzGG2HOd1lhMEBnHycOetHz4M&callback=initMap&libraries=places"
     async defer></script>
   </body>
 </html>
