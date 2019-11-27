@@ -26,7 +26,6 @@ function initMap() {
       text.style.border = '1px solid red';
     }
     else {
-      errorMsg.textContent = '';
       let output1 = '';
       let output2 = '';
       let key = "&APPID=40547464b0a67a8f5d0e5fcd1364a8fe";
@@ -53,9 +52,10 @@ function initMap() {
           position: { lat: lat, lng: lon },
           map: map,
 
-        })
+        });
+
         // Output 1
-        let iconCode = data.weather[0].icon
+        let iconCode = data.weather[0].icon;
 
         weatherOutput1.style.border =  '1px solid #7451eb';
         weatherOutput1.style.borderRadius = '5px';
@@ -104,6 +104,23 @@ function initMap() {
         errorMsg.style.fontWeight = 'bold';
         text.style.border = '1px solid red';
       });
+
+
+        // Temperature Converter
+        document.querySelector('.celcius').addEventListener('click', convertToCelcius);
+        document.querySelector('.fahranheit').addEventListener('click', convertToFahranheit);
+
+        function convertToCelcius() {
+          var celciusTemp = temp.textContent;
+          var celciusTemperature = Math.round(parseFloat(celciusTemp) - 273.15);
+          document.querySelector('.celciusContent').innerHTML = celciusTemperature + '&deg' + 'C';
+        }
+
+        function convertToFahranheit() {
+          var fahranheitTemp = temp.textContent;
+          var fahranheitTemperature = Math.round(((parseFloat(fahranheitTemp) - 273.15) * 1.8) + 32);
+          document.querySelector('.fahranheitContent').innerHTML = fahranheitTemperature + '&deg' + 'F';
+        }
     }
   });
 
