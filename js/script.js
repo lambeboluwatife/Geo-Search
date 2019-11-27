@@ -59,7 +59,7 @@ function initMap() {
 
         weatherOutput1.style.border =  '1px solid #7451eb';
         weatherOutput1.style.borderRadius = '5px';
-        
+
         document.querySelector('.inputValue').innerHTML = `Weather in ${input.value}`;
         document.querySelector('.iconCode').innerHTML = `<img src="http://openweathermap.org/img/w/${iconCode}.png">`;
         document.querySelector('.description').innerHTML = `${data.weather[0].description}`
@@ -83,16 +83,16 @@ function initMap() {
         document.querySelector('.fahranheit').addEventListener('click', convertToFahranheit);
 
         function convertToCelcius() {
-          var celciusTemp = temp.textContent;
-          var celciusTemperature = Math.round(parseFloat(celciusTemp) - 273.15);
-          document.querySelector('.temp').innerHTML = celciusTemperature + '&deg' + 'C';
+          var celciusTemp = temp;
+          document.querySelector('.temp').innerHTML = Math.round(temp) + '&deg' + 'C';
+          document.querySelector('.temp1').innerHTML = Math.round(temp) + '&deg' + 'C';
         }
 
         function convertToFahranheit() {
-          var fahranheitTemp = temp.textContent;
-          var fahranheitTemperature = Math.round(((parseFloat(fahranheitTemp) - 273.15) * 1.8) + 32);
-          console.log(fahranheitTemperature);
-          document.querySelector('.temp').innerHTML = fahranheitTemperature + '&deg' + 'F';
+          var fahranheitTemp = temp;
+          var fahranheitTemperature = (temp * 9/5) + 32;
+          document.querySelector('.temp').innerHTML = Math.round(fahranheitTemperature) + '&deg' + 'F';
+          document.querySelector('.temp1').innerHTML = Math.round(fahranheitTemperature) + '&deg' + 'F';
         }
       })
       .catch(function(error) {
