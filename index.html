@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <title>Geo-Search</title>
     <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
     <!-- <link rel="stylesheet" href="fontawesome/css/fontawesome.css">
     <link rel="stylesheet" href="fontawesome/css/solid.css">
     <link rel="stylesheet" href="fontawesome/css/brands.css">
@@ -15,6 +16,8 @@
       <!-- NavBar -->
       <ul>
         <li><h3>Geo-Search</h3></li>
+        <li style="float:right; margin-top: 10px; margin-left: 10px;"><input type="submit" class="celcius" value="&#8457;"></li>
+        <li style="float:right; margin-top: 10px; margin-left: 10px;"><input type="submit" class="fahranheit" value="&#8451;"></li>
       </ul>
     </header>
 
@@ -44,11 +47,26 @@
         <div class="flex-item">
           <!-- Weather Output 1 -->
           <div class="weatherOutput1">
-            
+            <div>
+              <div class="inputValue"></div>
+              <div class="iconCode"></div>
+              <div class="temp1"></div>
+              <div class="description"></div>
+            </div>
           </div>
+
+          <br><br><br>
 
           <!-- Weather Output 2 -->
           <div class="weatherOutput2">
+            <div class="result-container">
+              <div class="desc result"></div>
+              <div class="speed result"></div>
+              <div class="temp result"></div>
+              <div class="humidity result"></div>
+              <div class="press result"></div>
+              <div class="coord result"></div>
+            </div>
 
           </div>
         </div>
@@ -57,9 +75,6 @@
           <!-- Map Image -->
           <div id="map">
 
-            <!-- <div class="mapText">
-              Map
-            </div> -->
           </div>
         </div>
       </div>

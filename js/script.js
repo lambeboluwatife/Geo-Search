@@ -13,11 +13,17 @@ function initMap() {
 
   // Weather Data
   btn.addEventListener('click', () => {
+    text.addEventListener('focus', () => {
+      text.style.border = '1px solid #7451eb';
+      errorMsg.textContent = '';
+      text.value = ''
+    });
     if (input.value == '') {
-      errorMsg.textContent = 'Enter a City'
+      errorMsg.textContent = 'Enter a Location'
       errorMsg.style.color = 'red';
-      errorMsg.style.fontFamily = 'Adobe Devanagari'
-      text.style.border = '1px solid red;'
+      errorMsg.style.fontFamily = 'Adobe Devanagari';
+      errorMsg.style.fontWeight = 'bold';
+      text.style.border = '1px solid red';
     }
     else {
       errorMsg.textContent = '';
@@ -30,6 +36,7 @@ function initMap() {
         console.log(data);
         let lon = data.coord.lon;
         let lat = data.coord.lat;
+        let temp = data.main.temp;
 
         // Map Option
         let options = {
@@ -49,91 +56,53 @@ function initMap() {
         })
         // Output 1
         let iconCode = data.weather[0].icon
-        output1 += `
-        <style>
-        .result {
-          min-width: 250px;
-          margin-bottom: 30px;
-        }
-        .weather-city {
-          font: Arial black;;
-          margin-top: 0;
-        }
-        img {
-          height: 80px;
-          width: 80px;
-          border-style: none;
-        }
-        h4 {
-          margin-top: 5px;
-          margin-bottom: 5px;
-          display: block;
-        }
-        </style>
-        <div class='result'>
-        <center>
-          <h2 class="weather-city">Weather in ${input.value}</h2>
-          <img src="http://openweathermap.org/img/w/${iconCode}.png">
-          <h4>${data.main.temp}℃</h4>
-          <p>${data.weather[0].description}</p>
-        </center>
-        </div>
-        `
-        weatherOutput1.innerHTML = output1;
 
-        // Output 2
-        output2 += `
-        <style>
-        table {
-            border-collapse: collapse;
-            width: 100%;
-            border: 1px solid #ddd;
-            text-align: left;
+        weatherOutput1.style.border =  '1px solid #7451eb';
+        weatherOutput1.style.borderRadius = '5px';
+        
+        document.querySelector('.inputValue').innerHTML = `Weather in ${input.value}`;
+        document.querySelector('.iconCode').innerHTML = `<img src="http://openweathermap.org/img/w/${iconCode}.png">`;
+        document.querySelector('.description').innerHTML = `${data.weather[0].description}`
+        document.querySelector('.temp1').innerHTML = `${Math.round(temp)}℃`;
+
+        document.querySelector('.desc').innerHTML = `Description &#8594; ${data.weather[0].description}`;
+        document.querySelector('.desc').style.border = '1px solid #7451eb';
+      	document.querySelector('.temp').innerHTML = `Temperature &#8594; ${Math.round(temp)}℃`;
+        document.querySelector('.temp').style.border = '1px solid #7451eb';
+      	document.querySelector('.speed').innerHTML = `Wind Speed &#8594; ${data.wind.speed}m/s`;
+        document.querySelector('.speed').style.border = '1px solid #7451eb';
+        document.querySelector('.humidity').innerHTML = `Humidity &#8594; ${data.main.humidity}%`;
+        document.querySelector('.humidity').style.border = '1px solid #7451eb';
+      	document.querySelector('.press').innerHTML = `Pressure &#8594; ${data.main.pressure} hpa`;
+        document.querySelector('.press').style.border = '1px solid #7451eb';
+      	document.querySelector('.coord').innerHTML = `Geo Coord &#8594; [${lat}, ${lon}]`;
+        document.querySelector('.coord').style.border = '1px solid #7451eb';
+
+        // Temperature Converter
+        document.querySelector('.celcius').addEventListener('click', convertToCelcius);
+        document.querySelector('.fahranheit').addEventListener('click', convertToFahranheit);
+
+        function convertToCelcius() {
+          var celciusTemp = temp.textContent;
+          var celciusTemperature = Math.round(parseFloat(celciusTemp) - 273.15);
+          document.querySelector('.temp').innerHTML = celciusTemperature + '&deg' + 'C';
         }
 
-        th, td {
-            text-align: left;
-            padding: 15px;
-            border: 1px solid #ddd;
-            text-align: left;
-            font-family: Cambria;
+        function convertToFahranheit() {
+          var fahranheitTemp = temp.textContent;
+          var fahranheitTemperature = Math.round(((parseFloat(fahranheitTemp) - 273.15) * 1.8) + 32);
+          console.log(fahranheitTemperature);
+          document.querySelector('.temp').innerHTML = fahranheitTemperature + '&deg' + 'F';
         }
-
-        tr:nth-child(even){background-color: #f2f2f2}
-        </style>
-        <table style="width:100%">
-          <tr>
-            <td>Description</td>
-            <td>${data.weather[0].description}</td>
-          </tr>
-          <tr>
-            <td>Wind Speed</td>
-            <td>${data.wind.speed} m/s</td>
-          </tr>
-          <tr>
-            <td>Temperature</td>
-            <td>${data.main.temp}℃</td>
-          </tr>
-          <tr>
-            <td>Humidity</td>
-            <td>${data.main.humidity}%</td>
-          </tr>
-          <tr>
-            <td>Pressure</td>
-            <td>${data.main.pressure} hpa</td>
-          </tr>
-          <tr>
-            <td>Geo Coords</td>
-            <td>[${lat}, ${lon}]</td>
-          </tr>
-        </table>
-        `
-        weatherOutput2.innerHTML = output2;
-
       })
       .catch(function(error) {
         // catch any errors
         console.log(error.message);
+        errorMsg.textContent = 'City not Found'
+        errorMsg.style.color = 'red';
+        errorMsg.style.fontFamily = 'Adobe Devanagari';
+        errorMsg.style.fontWeight = 'bold';
+        text.style.border = '1px solid red';
       });
     }
   });
